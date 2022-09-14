@@ -1,0 +1,37 @@
+--Create your basic store Database
+--Made up music store:
+
+
+
+
+CREATE TABLE store_inventory (id INTEGER PRIMARY KEY, item_name TEXT, item_number INTEGER, brand TEXT, price INTEGER );
+
+INSERT INTO store_inventory VALUES
+(1, 'SB204 Bass Guitar', 1234, 'Ibanez', 299.99),
+(2, 'SB205 Bass Guitar', 2341, 'Ibanez', 399.99),
+(3, 'G460 Electric Guitar', 5436, 'Music Man', 999.99),
+(4, 'S550 Bass Guitar', 3265, 'Music Man', 1299.99),
+(5, 'Silver Mountain Bass Guitar', 3245, 'Schecter', 1249.99),
+(6, 'Demon Black Electric Guitar', 7777, 'Schecter', 699.99),
+(7, '5 Piece Drumset', 7364, 'Tama', 979.99),
+(8, '7 Piece Drumset', 1294, 'Tama', 1249.99),
+(9, '4 Piece Drumset', 3232, 'Pearl', 449.99),
+(10, 'Snare drum steel', 8577, 'Pearl', 199.99),
+(11, 'Guitar picks', 1111, 'dunlop', 4.99),
+(12, 'Drum sticks', 5467, 'Pearl', 9.99),
+(13, 'Guitar strings', 7666, 'Earnie Ball', 29.99),
+(14, 'Bass Guitar strings', 4444, 'Earnie Ball', 49.99),
+(15, 'Professional Digital Mixer 20 channels', 9999, 'JBL', 9999.99);
+
+
+--Displaying database from least expensive to most expensive
+SELECT * FROM store_inventory ORDER BY price asc;
+
+--Displaying items from a particular brand
+SELECT * FROM store_inventory WHERE brand = 'Tama'
+
+
+
+
+
+
