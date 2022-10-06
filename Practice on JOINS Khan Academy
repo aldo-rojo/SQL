@@ -1,0 +1,174 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE star_wars (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    force_powers TEXT,
+    midichlorian_count INTEGER
+    );
+    
+INSERT INTO star_wars VALUES (1, "Luke Skywalker", "Jedi", 24240);
+
+INSERT INTO star_wars VALUES (2, "Anakin Skywalker", "Jedi", 27800);
+
+INSERT INTO star_wars VALUES (3, "Darth Vader", "Sith", 26830);
+
+INSERT INTO star_wars VALUES (4, "Darth Sidious", "Sith", 21500);
+
+INSERT INTO star_wars VALUES (5, "Obi Wan Kenobi", "Jedi", 11300);
+
+INSERT INTO star_wars VALUES (6, "Leia Skywalker", NULL, 24240);
+
+INSERT INTO star_wars VALUES (7, "Yoda", "Jedi", 17300);
+
+INSERT INTO star_wars VALUES (8, "Count Dooku", "Sith", 18100);
+
+INSERT INTO star_wars VALUES (9, "Mace Windu", "Jedi", 15800);
+
+INSERT INTO star_wars (id, name, midichlorian_count) VALUES (10, "Han Solo", 6500);
+
+INSERT INTO star_wars VALUES (11, "Qui Gon Jin", "Jedi", 15200);
+
+INSERT INTO star_wars VALUES (12, "Darth Maul", "Sith", 13600);
+
+
+CREATE TABLE first_appearance (
+    id INTEGER PRIMARY KEY,
+    character_id INTEGER,
+    movie TEXT,
+    EPISODE INTEGER);
+    
+INSERT INTO first_appearance VALUES (1, 1, "A New Hope", 4);
+
+INSERT INTO first_appearance VALUES (2, 2, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (3, 3, "Revenge of the Sith", 3);
+
+INSERT INTO first_appearance VALUES (4, 4, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (5, 5, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (6, 6, "Revenge of the Sith", 3);
+
+INSERT INTO first_appearance VALUES (7, 7, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (8, 8, "Attack of the Clones", 2);
+
+INSERT INTO first_appearance VALUES (9, 9, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (10, 10, "A New Hope", 4);
+
+INSERT INTO first_appearance VALUES (11, 11, "The Phantom Menace", 1);
+
+INSERT INTO first_appearance VALUES (12, 12, "The Phantom Menace", 1);
+
+CREATE TABLE weapon_information (
+    id INTEGER PRIMARY KEY,
+    character_id INTEGER,
+    type TEXT,
+    blaster_type TEXT,
+    kyber_crystal TEXT);
+    
+INSERT INTO weapon_information VALUES (1, 1, "Lightsaber", NULL, "Green");
+
+INSERT INTO weapon_information VALUES (2, 2, "Lightsaber", NULL, "Blue");
+
+INSERT INTO weapon_information VALUES (3, 3, "Lightsaber", NULL, "Red");
+
+INSERT INTO weapon_information VALUES (4, 4, "Lightsaber", NULL, "Red");
+
+INSERT INTO weapon_information VALUES (5, 5, "Lightsaber", NULL, "Red");
+
+INSERT INTO weapon_information VALUES (6, 6, "Blaster", "Satine's Lament", NULL);
+
+INSERT INTO weapon_information VALUES (7, 7, "Lightsaber", NULL, "Green");
+
+INSERT INTO weapon_information VALUES (8, 8, "Lightsaber", NULL, "Red");
+
+INSERT INTO weapon_information VALUES (9, 9, "Lightsaber", NULL, "Purple");
+
+INSERT INTO weapon_information VALUES (10, 10, "Blaster", "DL-44", NULL);
+
+INSERT INTO weapon_information VALUES (11, 11, "Lightsaber", NULL, "Green");
+
+INSERT INTO weapon_information VALUES (12, 12, "Lightsaber", NULL, "Red");
+
+CREATE TABLE relationship (
+    id INTEGER PRIMARY KEY,
+    Character_id INTEGER,
+    Killed_by_id INTEGER,
+    related_to_id INTEGER);
+    
+INSERT INTO relationship VALUES (1, 1, NULL, 2);
+
+INSERT INTO relationship VALUES (2, 1, NULL, 6);
+
+INSERT INTO relationship VALUES (3, 1, NULL, 3);
+    
+INSERT INTO relationship VALUES (4, 2, 3, 1);
+
+INSERT INTO relationship VALUES (5, 2, 3, 6);
+
+INSERT INTO relationship VALUES (6, 3, 4, 1);
+
+INSERT INTO relationship VALUES (7, 3, 4, 6);
+
+INSERT INTO relationship VALUES (8, 4, 3, NULL);
+
+INSERT INTO relationship VALUES (9, 5, 3, NULL);
+
+INSERT INTO relationship VALUES (10, 6, NULL, 1);
+
+INSERT INTO relationship VALUES (11, 6, NULL, 2);
+
+INSERT INTO relationship VALUES (12, 6, NULL, 3);
+
+INSERT INTO relationship VALUES (13, 7, NULL, NULL);
+
+INSERT INTO relationship VALUES (14, 8, 2, NULL);
+
+INSERT INTO relationship VALUES (15, 9, 4, NULL);
+
+INSERT INTO relationship VALUES (16, 10, NULL, NULL);
+
+INSERT INTO relationship VALUES (17, 11, 12, NULL);
+
+INSERT INTO relationship VALUES (18, 12, 5, NULL);
+
+
+-- Query to find out who killed who by joining a table to itself as well as to another table
+
+SELECT DISTINCT sw1.name AS Name, sw2.name AS "Killed By"
+    FROM star_wars sw1
+    JOIN relationship r
+        ON sw1.id = r.Character_id
+    JOIN star_wars sw2
+        ON sw2.id = r.killed_by_id;
+        
+-- Query to find out what color of lightsaber the character uses and a WHERE clause to exclude NULL values
+
+SELECT sw.name AS Name, wi.type AS "Weapon Type", wi.kyber_crystal AS "Lightsaber Color", sw.force_powers AS "Side of the Force"
+    FROM star_wars sw
+    JOIN weapon_information wi
+        ON sw.id = wi.character_id
+    WHERE sw.force_powers IS NOT NULL
+    ORDER BY force_powers;
+    
+--using join clause to learn when each character made its first appearance.
+
+SELECT sw.name, fa.movie, fa.episode
+    FROM star_wars sw
+    JOIN first_appearance fa
+        ON sw.id = fa.character_id
+        ORDER BY fa.episode, sw.name;
+        
+
+
+
+    
+
+
+ 
+
+
+
