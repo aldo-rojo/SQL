@@ -1,0 +1,64 @@
+-- Creating a small Table about arrests in order to use a few ALTER, UPDATE, and DELETE queries
+
+CREATE TABLE arrests (
+    id INTEGER PRIMARY KEY,
+    arresting_officer TEXT,
+    arresting_officer_badge INTEGER,
+    arresting_officer2 TEXT,
+    arresting_officer2_badge INTEGER,
+    charge TEXT,
+    penalty TEXT);
+    
+INSERT INTO arrests VALUES (1, "A. Rojo", 11169, "D. Kaiser", 12254, "Fraudulent Use/Possession of Identifying Information", "3rd Degree Felony");
+
+INSERT INTO arrests VALUES (2, "A. Rojo", 11169, "C. Wood", 11995, "Unlawful Carrying of Weapons", "Misdemeanor A");
+
+INSERT INTO arrests VALUES (3, "A. Rojo", 11169, "S. Lamas", 11464, "Unlawful Possession of Firearm by Felon", "3rd Degree Felony");
+
+INSERT INTO arrests VALUES (4, "A. Rojo", 11169, "S. Lamas", 11464, "Manufacture or Delivery of a Controlled Substance in Penalty Group 1: Methamphetamine", "2nd Degree Felony");
+
+INSERT INTO arrests VALUES (5, "A. Rojo", 11169, "S. Lamas", 11464, "Aggravated Assault with a Deadly Weapon (Serious Bodily Injury)", "2nd Degree Felony");
+
+INSERT INTO arrests VALUES (6, "A. Rojo", 11169, NULL, NULL, "Murder", "1st Degree Felony");
+
+
+UPDATE arrests SET arresting_officer2 = "R. RivasTorres", arresting_officer2_badge = 12024 WHERE id = 6;
+
+ALTER TABLE arrests ADD arrested_person_id INTEGER;
+
+UPDATE arrests SET arrested_person_id = 1 WHERE id = 1;
+
+UPDATE arrests SET arrested_person_id = 3 WHERE id = 2;
+
+UPDATE arrests SET arrested_person_id = 2 WHERE id = 3;
+
+UPDATE arrests SET arrested_person_id = 4 WHERE id = 6;
+
+UPDATE arrests SET arrested_person_id = 5 WHERE id = 5;
+
+UPDATE arrests SET arrested_person_id = 6 WHERE id = 4;
+
+ALTER TABLE arrests ADD case_number TEXT;
+
+UPDATE arrests SET case_number = '000001-2022' WHERE id = 1;
+
+UPDATE arrests SET case_number = '000002-2022' WHERE id = 2;
+
+UPDATE arrests SET case_number = '000003-2022' WHERE id = 3;
+
+UPDATE arrests SET case_number = '000004-2022' WHERE id = 4;
+
+UPDATE arrests SET case_number = '000005-2022' WHERE id = 5;
+
+UPDATE arrests SET case_number = '000006-2022' WHERE id = 6;
+
+
+DELETE FROM arrests WHERE id = 5;
+
+                
+SELECT * FROM arrests;
+
+
+
+                  
+
